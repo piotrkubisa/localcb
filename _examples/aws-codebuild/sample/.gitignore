@@ -1,0 +1,4 @@
+# Additional security against "accidental git add ." during development
+# and testing :)
+localci-example
+main

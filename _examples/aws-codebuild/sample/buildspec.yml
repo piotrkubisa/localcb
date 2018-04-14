@@ -1,0 +1,31 @@
+version: 0.2
+env:
+  variables:
+    PROJECT_NAME: "example"
+    SOURCE_CODE: "main.go"
+    BINARY_NAME: "localci-example"
+    DOCKER_IMAGE_GO: "golang:1"
+    REPOSITORY_PATH: "piotrkubisa/localci/_examples/aws-codebuild/sample"
+phases:
+  pre_build:
+    commands:
+      # Compute environment variables
+      - SOURCE_VERSION="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - CURRENT_DATETIME="$(date -u +%Y%m%d.%H%M%S)"
+
+      # Download additional resources
+      - docker pull $DOCKER_IMAGE_GO
+  build:
+    commands:
+      # Compile binary
+      - docker run --rm -v "$(pwd)":/gopath/src/${REPOSITORY_PATH} -w "/gopath/src/${REPOSITORY_PATH}" -e "GOPATH=/gopath" $DOCKER_IMAGE_GO sh -c "GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -v -o ./${BINARY_NAME} -ldflags \"-s -w -X main.buildVersion=${SOURCE_VERSION} -X main.buildDate=${CURRENT_DATETIME}\" $SOURCE_CODE
+  post_build:
+    commands:
+      # Calculate a SHA256 hash of the binary and apply base64 encoding
+      - ARTIFACT_SHA256_B64=$(openssl dgst -sha256 -binary ${BINARY_NAME} | openssl enc -base64)
+
+      # Export build result to JSON file
+      - printf '{"sha256":"%s","revision":"%s"}' $ARTIFACT_SHA256_B64 $SOURCE_VERSION > build.json
+artifacts:
+  files:
+    - build.json
