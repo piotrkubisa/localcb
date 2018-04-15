@@ -2,3 +2,6 @@
 # and testing :)
 localci-example
 main
+localci.sh
+aws-codebuild-docker-images/
+build.json
