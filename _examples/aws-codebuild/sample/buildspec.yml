@@ -11,8 +11,8 @@ phases:
     commands:
       # Compute environment variables
       - SOURCE_VERSION="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
-      - CURRENT_DATETIME="$(date -u +%Y%m%d.%H%M%S)"
-      - env
+      - CURRENT_DATETIME="$(date -u +%Y%m%dT%H%M%S)"
+      - env | sort
   build:
     commands:
       # Compile binary
