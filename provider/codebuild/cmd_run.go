@@ -130,7 +130,7 @@ func runCommand(c *cli.Context) error {
 		},
 		Artifacts: &cloudformation.AWSCodeBuildProject_Artifacts{
 			// TODO: It would be nice to produce an artifact as a result
-			Type: "no_artifacts",
+			Type: "NO_ARTIFACTS",
 		},
 	}
 
