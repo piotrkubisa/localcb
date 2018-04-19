@@ -68,9 +68,6 @@ func (cb *CodeBuild) Volumes(customVolumes []string) ([]string, error) {
 	}
 
 	defaultVolumes := []string{
-		// A docker-in-docker requires to share docker between host and guest
-		"/var/run/docker.sock:/var/run/docker.sock",
-
 		// Working directory
 		cwd + ":" + guestWorkingDirectory,
 	}
