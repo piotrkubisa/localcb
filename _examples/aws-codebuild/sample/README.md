@@ -19,10 +19,10 @@ cd $GOPATH/piotrkubisa/localci
 # Assuming localci binary has been built, otherwise go run might be used
 # Override CODEBUILD_RESOLVED_SOURCE_VERSION variable and add extra SOME_VARIABLE variable which is has whitespace in value
 localci \
-    codebuild run \
-        --basedir ./_examples/aws-codebuild/sample/ \
-        --file ./_examples/aws-codebuild/sample/buildspec.yml \
-        --image aws/codebuild/docker:17.09.0 \
-        --env "SOME_VARIABLE=Hello World" \
-        --env CODEBUILD_RESOLVED_SOURCE_VERSION=`git rev-list --all --max-count=1`
+  codebuild run \
+    --basedir ./_examples/aws-codebuild/sample/ \
+    --file ./_examples/aws-codebuild/sample/buildspec.yml \
+    --image aws/codebuild/docker:17.09.0 \
+    --env "SOME_VARIABLE=Hello World" \
+    --env CODEBUILD_RESOLVED_SOURCE_VERSION=`git rev-list --all --max-count=1`
 ```
