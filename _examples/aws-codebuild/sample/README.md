@@ -17,7 +17,8 @@ And to run `localci` with a docker, please execute:
 cd $GOPATH/piotrkubisa/localci
 
 # Assuming localci binary has been built, otherwise go run might be used
-# Override CODEBUILD_RESOLVED_SOURCE_VERSION variable and add extra SOME_VARIABLE variable which is has whitespace in value
+# Override CODEBUILD_RESOLVED_SOURCE_VERSION variable
+# Add extra SOME_VARIABLE variable which is has whitespace in value
 localci \
   codebuild run \
     --basedir ./_examples/aws-codebuild/sample/ \
