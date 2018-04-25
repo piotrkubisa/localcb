@@ -18,7 +18,7 @@ cd $GOPATH/piotrkubisa/localci
 
 # Assuming localci binary has been built, otherwise go run might be used
 # Override CODEBUILD_RESOLVED_SOURCE_VERSION variable
-# Add extra SOME_VARIABLE variable which is has whitespace in value
+# Add extra SOME_VARIABLE variable which has a whitespace in its value
 localci \
   codebuild run \
     --basedir ./_examples/aws-codebuild/sample/ \
