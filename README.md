@@ -44,7 +44,7 @@ The simplest form of `localci` command with `AWS CodeBuild` requires providing `
 localci codebuild run --image aws/codebuild/docker:17.09.0
 ```
 
-`localci` will load `buildspec.yml` file, parse all defined phases and shell commands, create `localci.sh` file and then (unless `--dry-run` flag was provided) it will start docker container and execute aforementioned `localci.sh` file.
+`localci` will load `buildspec.yml` file, parse all defined phases and shell commands, create `localci.sh` file and then (unless `--dry-run` flag was provided) it will start docker container (with mounted volume and with bind env-variables) and execute aforementioned `localci.sh` file.
 
 For more information it is recommended to inspect `localci codebuild --help`.
 
