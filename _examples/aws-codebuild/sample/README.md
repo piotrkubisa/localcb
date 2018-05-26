@@ -1,5 +1,35 @@
 # localci: AWS CodeBuild sample
 
+## tl;dr
+
+```bash
+# Change directory to current directory
+cd $GOPATH/piotrkubisa/localci
+
+# Download and build required docker image
+bash _examples/aws-codebuild/sample/pull_image.sh
+
+# Install dependencies (i.e. using glide) if not installed
+glide install
+
+# Run localci.
+# There is some additional magic to 
+# * --env: These two env variables will be ased to docker container.
+# * --image: Specify a docker image (required flag).
+# * --file: Path to the buildspec.yml (let's say you use custom name; 
+#                                default - buildspec.yml in --basedir directory).
+# * --basefir: Path to the directory where is located source code (by default - current directory).
+go run ./cmd/localci/main.go \
+  codebuild run \
+    --basedir ./_examples/aws-codebuild/sample/ \
+    --file ./_examples/aws-codebuild/sample/buildspec.yml \
+    --image aws/codebuild/docker:17.09.0 \
+    --env "SOME_VARIABLE=Hello World" \
+    --env CODEBUILD_RESOLVED_SOURCE_VERSION=`git rev-list --all --max-count=1`
+```
+
+## Explained
+
 This example uses `aws/codebuild/docker:17.09.0` Docker image, which can be build following commands:
 
 ```bash
