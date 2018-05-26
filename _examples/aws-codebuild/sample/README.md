@@ -18,7 +18,7 @@ glide install
 # * --image: Specify a docker image (required flag).
 # * --file: Path to the buildspec.yml (let's say you use custom name; 
 #                                default - buildspec.yml in --basedir directory).
-# * --basefir: Path to the directory where is located source code (by default - current directory).
+# * --basefid: Path to the directory where is located source code (by default - current directory).
 go run ./cmd/localci/main.go \
   codebuild run \
     --basedir ./_examples/aws-codebuild/sample/ \
