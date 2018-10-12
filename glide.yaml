@@ -13,7 +13,7 @@ import:
   - pkg/stdcopy
   - pkg/term
 - package: github.com/fatih/color
-- package: github.com/go-yaml/yaml
+- package: github.com/sanathkr/yaml
 - package: github.com/mattn/go-colorable
 - package: github.com/pkg/errors
 - package: github.com/urfave/cli

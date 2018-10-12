@@ -3,7 +3,7 @@ package codebuild
 import (
 	"io/ioutil"
 
-	"github.com/go-yaml/yaml"
+	"github.com/sanathkr/yaml"
 )
 
 // BuildSpec defines top-root contents of `buildspec.yml` file.

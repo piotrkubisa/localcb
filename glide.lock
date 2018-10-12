@@ -1,5 +1,5 @@
-hash: df6380c5a65a56f1e0d0f67bd235ed3645014bbcf549f1c0b03b783f6e68e50a
-updated: 2018-10-12T12:32:09.193693268+02:00
+hash: 7bcef345eb490570170da02c56205ff28115138f8c20ec99c3d63eb5415990e2
+updated: 2018-10-12T12:44:33.795543815+02:00
 imports:
 - name: github.com/awslabs/goformation
   version: 5e86785c819d1f6d1f2c36b8a8a3fe4c46320399
@@ -50,8 +50,6 @@ imports:
   version: 47565b4f722fb6ceae66b95f853feed578a4a51c
 - name: github.com/fatih/color
   version: 3f9d52f7176a6927daacff70a3e8d1dc2025c53e
-- name: github.com/go-yaml/yaml
-  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 - name: github.com/gogo/protobuf
   version: fd322a3c49630fe6d05737e2b7d9426e6680e28d
   subpackages:
