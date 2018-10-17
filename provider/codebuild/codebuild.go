@@ -18,7 +18,7 @@ import (
 const (
 	envTag = "env"
 
-	guestWorkingDirectory = "/tmp/src123456789/src"
+	guestWorkingDirectory = "/tmp/src"
 )
 
 // CodeBuild mimics AWS CodeBuild runtime for the localci
@@ -292,7 +292,7 @@ func (cb *CodeBuild) CreateContainer(cfg RunConfiguration) (container.ContainerC
 		Tty:        false,
 		Env:        cfg.EnvVariables,
 		WorkingDir: cfg.WorkingDirectory,
-		Cmd:        []string{`sh ./localci.sh`},
+		Cmd:        []string{"sh", "./localci.sh"},
 	}
 	host := &container.HostConfig{
 		Binds:      cfg.Volume,

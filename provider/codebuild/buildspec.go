@@ -11,13 +11,13 @@ import (
 // See:
 // - https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
 type BuildSpec struct {
-	Version   string    `yaml:"version"`
-	Env       Env       `yaml:"env"`
-	Phases    Phases    `yaml:"phases"`
-	Artifacts Artifacts `yaml:"artifacts"`
+	Version   string    `json:"version"`
+	Env       Env       `json:"env"`
+	Phases    Phases    `json:"phases"`
+	Artifacts Artifacts `json:"artifacts"`
 
 	// Cache is not supported
-	// Cache     interface{}     `yaml:"cache"`
+	// Cache     interface{}     `json:"cache"`
 }
 
 // ParseBuildSpec unmarshals contents of the `buildspec.yml` file to the newly-
@@ -39,32 +39,32 @@ func ParseBuildSpec(filePath string) (bs BuildSpec, err error) {
 // Env describes contents specified in top-root `env` key of the `builspec.yml`
 // file.
 type Env struct {
-	Variables map[string]string `yaml:"variables"`
+	Variables map[string]string `json:"variables"`
 
 	// TODO; ParameterStore is not supported right now, so make it work :)
-	// ParameterStore map[string]string `yaml:"parameter-store"`
+	// ParameterStore map[string]string `json:"parameter-store"`
 }
 
 // Phases describes contents specified in top-root `phases` key
 // of the `buildspec.yml` file.
 type Phases struct {
-	Install   Phase `yaml:"install"`
-	PreBuild  Phase `yaml:"pre_build"`
-	Build     Phase `yaml:"build"`
-	PostBuild Phase `yaml:"post_build"`
+	Install   Phase `json:"install"`
+	PreBuild  Phase `json:"pre_build"`
+	Build     Phase `json:"build"`
+	PostBuild Phase `json:"post_build"`
 }
 
 // Phase provides command list which will be run during the build.
 type Phase struct {
-	Commands []string `yaml:"commands"`
+	Commands []string `json:"commands"`
 }
 
 // Artifacts describes contents specified in top-root `artifacts` key
 // of the `buildspec.yml` file.
 type Artifacts struct {
-	Files         interface{} `yaml:"files"`
-	DiscardPaths  string      `yaml:"discard-paths"` // default=yes
-	BaseDirectory string      `yaml:"base-directory"`
+	Files         interface{} `json:"files"`
+	DiscardPaths  string      `json:"discard-paths"` // default=yes
+	BaseDirectory string      `json:"base-directory"`
 }
 
 // List returns list of files defined in the OutputArtifact

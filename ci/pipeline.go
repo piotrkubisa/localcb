@@ -16,7 +16,10 @@ type Pipeline struct {
 func NewPipeline() (*Pipeline, error) {
 	ctx := context.Background()
 
-	cli, err := client.NewEnvClient()
+	cli, err := client.NewClientWithOpts(
+		client.WithVersion("1.37"),
+		client.FromEnv,
+	)
 	if err != nil {
 		return nil, err
 	}
