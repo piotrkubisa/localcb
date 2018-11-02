@@ -14,7 +14,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "localcb"
 	app.Usage = "Run AWS CodeBuild pipeline directly on your local machine"
-	app.Version = "0.2.0"
+	app.Version = "0.3.0"
 	app.Commands = []cli.Command{
 		codebuild.RunCommand(),
 	}
