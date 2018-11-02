@@ -1,6 +1,6 @@
 # `localcb`
 
-Run CI pipeline (i.e. AWS CodeBuild) directly on your local machine using Docker containers.
+Run AWS CodeBuild pipeline directly on your local machine using Docker containers.
 
 ## Installation
 
@@ -12,12 +12,6 @@ Additional requirements:
 
 * Docker client.
 * Add `$GOPATH/bin` to your `$PATH` (to run `localcb` without the need to provide absolute path to the statically linked binary).
-
-## Supported providers:
-
-| Service                         | Support status |
-| ------------------------------- | -------------- |
-| [AWS CodeBuild](#aws-codebuild) | Beta           |
 
 ## AWS CodeBuild provider
 
@@ -41,7 +35,7 @@ docker build -t aws/codebuild/docker:17.09.0 .
 The simplest form of `localcb` command with `AWS CodeBuild` requires providing `--image` flag with a name of the Docker image, which are going to be used to run all shell commands inside.
 
 ```bash
-localcb codebuild run --image aws/codebuild/docker:17.09.0
+localcb run --image aws/codebuild/docker:17.09.0
 ```
 
 `localcb` will load `buildspec.yml` file, parse all defined phases and shell commands, create `localcb.sh` file and then (unless `--dry-run` flag was provided) it will start docker container (with mounted volume and with bind env-variables) and execute aforementioned `localcb.sh` file.

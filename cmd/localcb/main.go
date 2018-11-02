@@ -13,16 +13,10 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "localcb"
-	app.Usage = "Run CI pipeline directly on your local machine"
+	app.Usage = "Run AWS CodeBuild pipeline directly on your local machine"
 	app.Version = "0.2.0"
 	app.Commands = []cli.Command{
-		{
-			Name:  "codebuild",
-			Usage: "Use buildspec.yml definition (AWS CodeBuild).",
-			Subcommands: []cli.Command{
-				codebuild.RunCommand(),
-			},
-		},
+		codebuild.RunCommand(),
 	}
 
 	err := app.Run(os.Args)

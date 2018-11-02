@@ -20,7 +20,7 @@ glide install
 #                                default - buildspec.yml in --basedir directory).
 # * --basefid: Path to the directory where is located source code (by default - current directory).
 go run ./cmd/localcb/main.go \
-  codebuild run \
+  run \
     --basedir ./_examples/aws-codebuild/sample/ \
     --file ./_examples/aws-codebuild/sample/buildspec.yml \
     --image aws/codebuild/docker:17.09.0 \
@@ -50,7 +50,7 @@ cd $GOPATH/piotrkubisa/localcb
 # Override CODEBUILD_RESOLVED_SOURCE_VERSION variable
 # Add extra SOME_VARIABLE variable which has a whitespace in its value
 localcb \
-  codebuild run \
+  run \
     --basedir ./_examples/aws-codebuild/sample/ \
     --file ./_examples/aws-codebuild/sample/buildspec.yml \
     --image aws/codebuild/docker:17.09.0 \
