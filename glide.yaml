@@ -1,4 +1,4 @@
-package: github.com/piotrkubisa/localci
+package: github.com/piotrkubisa/localcb
 import:
 - package: github.com/awslabs/goformation
   subpackages:

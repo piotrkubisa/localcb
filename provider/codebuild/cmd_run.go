@@ -6,12 +6,12 @@ import (
 	"strings"
 
 	"github.com/awslabs/goformation/cloudformation"
-	"github.com/piotrkubisa/localci/cmd"
+	"github.com/piotrkubisa/localcb/cmd"
 	"github.com/urfave/cli"
 )
 
 const (
-	scriptFile    = "localci.sh"
+	scriptFile    = "localcb.sh"
 	containerName = ""
 )
 
@@ -50,7 +50,7 @@ func RunCommand() cli.Command {
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  runFlags.ProjectName.Join(),
-				Value: "codebuild-localci-project",
+				Value: "codebuild-localcb-project",
 				Usage: `Optional. Name of the project`,
 			},
 			cli.StringFlag{
@@ -60,11 +60,11 @@ func RunCommand() cli.Command {
 			cli.StringFlag{
 				Name:  runFlags.BaseDir.Join(),
 				Value: "./",
-				Usage: `Optional. Define location where localci should recognize as working directory.`,
+				Usage: `Optional. Define location where localcb should recognize as working directory.`,
 			},
 			cli.BoolFlag{
 				Name:  runFlags.DryRun.Join(),
-				Usage: "Optional. Does localci should bail out before starting a container?",
+				Usage: "Optional. Does localcb should bail out before starting a container?",
 			},
 			cli.StringFlag{
 				Name:  runFlags.BuildspecFile.Join(),
@@ -101,7 +101,7 @@ func RunCommand() cli.Command {
 }
 
 func runCommand(c *cli.Context) error {
-	// Compute a working directory for the localci
+	// Compute a working directory for the localcb
 	baseDir := filepath.Dir(runFlags.BuildspecFile.Long)
 	if c.String(runFlags.BaseDir.Long) != "" {
 		baseDir = c.String(runFlags.BaseDir.Long)
