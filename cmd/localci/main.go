@@ -14,7 +14,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "localci"
 	app.Usage = "Run CI pipeline directly on your local machine"
-	app.Version = "1.0.0"
+	app.Version = "0.2.0"
 	app.Commands = []cli.Command{
 		{
 			Name:  "codebuild",
