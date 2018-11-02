@@ -292,6 +292,7 @@ func (cb *CodeBuild) CreateContainer(cfg RunConfiguration) (container.ContainerC
 		Tty:        false,
 		Env:        cfg.EnvVariables,
 		WorkingDir: cfg.WorkingDirectory,
+		Entrypoint: []string{"dockerd-entrypoint.sh"},
 		Cmd:        []string{"sh", "./localcb.sh"},
 	}
 	host := &container.HostConfig{

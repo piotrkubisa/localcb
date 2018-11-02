@@ -4,7 +4,7 @@
 
 ```bash
 # Change directory to current directory
-cd $GOPATH/piotrkubisa/localcb
+cd $GOPATH/src/github.com/piotrkubisa/localcb
 
 # Download and build required docker image
 bash _examples/aws-codebuild/sample/pull_image.sh
@@ -44,7 +44,7 @@ And to run `localcb` with a docker, please execute:
 
 ```bash
 # Change directory to show --basedir as a feature
-cd $GOPATH/piotrkubisa/localcb
+cd $GOPATH/src/github.com/piotrkubisa/localcb
 
 # Assuming localcb binary has been built, otherwise go run might be used
 # Override CODEBUILD_RESOLVED_SOURCE_VERSION variable
