@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/piotrkubisa/localci/ci"
+	"github.com/piotrkubisa/localcb/ci"
 )
 
-// ShellScript transforms CodeBuild definition file to localci.sh shell script
+// ShellScript transforms CodeBuild definition file to localcb.sh shell script
 type ShellScript struct {
 	Buffer *bytes.Buffer
 }

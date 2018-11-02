@@ -1,7 +1,7 @@
 # Additional security against "accidental git add ." during development
 # and testing :)
-localci-example
+localcb-example
 main
-localci.sh
+localcb.sh
 aws-codebuild-docker-images/
 build.json

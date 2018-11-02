@@ -11,7 +11,7 @@ import (
 
 	"github.com/awslabs/goformation/cloudformation"
 	"github.com/docker/docker/api/types/container"
-	"github.com/piotrkubisa/localci/ci"
+	"github.com/piotrkubisa/localcb/ci"
 	"github.com/pkg/errors"
 )
 
@@ -21,7 +21,7 @@ const (
 	guestWorkingDirectory = "/tmp/src"
 )
 
-// CodeBuild mimics AWS CodeBuild runtime for the localci
+// CodeBuild mimics AWS CodeBuild runtime for the localcb
 type CodeBuild struct {
 	Definition BuildSpec
 	Project    cloudformation.AWSCodeBuildProject
@@ -34,13 +34,13 @@ func NewCodeBuild(project cloudformation.AWSCodeBuildProject) (*CodeBuild, error
 	// Load and parse buildspec.yml file
 	bs, err := ParseBuildSpec(project.Source.BuildSpec)
 	if err != nil {
-		return nil, errors.Wrap(err, "localci: ParseBuildSpec")
+		return nil, errors.Wrap(err, "localcb: ParseBuildSpec")
 	}
 
 	// Create a wrapper on top of the Docker client
 	pipeline, err := ci.NewPipeline()
 	if err != nil {
-		return nil, errors.Wrap(err, "localci: ci.NewPipeline")
+		return nil, errors.Wrap(err, "localcb: ci.NewPipeline")
 	}
 
 	cb := &CodeBuild{bs, project, pipeline, NewShellScript()}
@@ -102,7 +102,7 @@ func (cb *CodeBuild) NewDefaultVariables() DefaultVariables {
 		awsRegion    = "local"
 		awsAccountID = "000000000"
 		requestID    = "00000000-0000-0000-0000-00000"
-		pipelineName = "localci-pipeline"
+		pipelineName = "localcb-pipeline"
 		kmsKeyID     = "notExistingID"
 		commitID     = "ffffffff"
 	)
@@ -195,20 +195,20 @@ func (cb *CodeBuild) PhaseToStage(p Phase, name string) {
 	cb.Pipeline.AddStage(stage)
 }
 
-// StagesAsScript saves a localci.sh shell script into given basedir
+// StagesAsScript saves a localcb.sh shell script into given basedir
 func (cb *CodeBuild) StagesAsScript(baseDir, scriptFile string) error {
 	for _, stage := range cb.Pipeline.Stages {
 		cb.Script.ExtractStage(stage)
 	}
 	err := cb.SaveScript(baseDir + scriptFile)
 	if err != nil {
-		return errors.Wrap(err, "localci: cb.StagesAsScript")
+		return errors.Wrap(err, "localcb: cb.StagesAsScript")
 	}
 	return nil
 }
 
 // SaveScript creates script (i.e. shell) file on host, which can be futher used
-// by the localci during the runtime.
+// by the localcb during the runtime.
 func (cb *CodeBuild) SaveScript(location string) error {
 	f, err := os.Create(location)
 	if err != nil {
@@ -243,38 +243,38 @@ func (cb *CodeBuild) Validate(cfg RunConfiguration) error {
 	return nil
 }
 
-// RunInContainer starts Docker container and executes localci.sh shell script
+// RunInContainer starts Docker container and executes localcb.sh shell script
 func (cb *CodeBuild) RunInContainer(cfg RunConfiguration) error {
 	_, err := cb.Pipeline.DockerVersion()
 	if err != nil {
-		log.Printf("localci requires Docker. Do you have docker installed and running as a service on your machine?")
-		return errors.Wrap(err, "localci: cb.Pipeline.DockerVersion")
+		log.Printf("localcb requires Docker. Do you have docker installed and running as a service on your machine?")
+		return errors.Wrap(err, "localcb: cb.Pipeline.DockerVersion")
 	}
 
 	if err := cb.Pipeline.PullImage(cb.Project.Environment.Image, cfg.ForcePullImage); err != nil {
-		return errors.Wrap(err, "localci: cb.Pipeline.PullImage")
+		return errors.Wrap(err, "localcb: cb.Pipeline.PullImage")
 	}
 
 	cont, err := cb.CreateContainer(cfg)
 	if err != nil {
-		return errors.Wrap(err, "localci: cb.Pipeline.CreateContainer")
+		return errors.Wrap(err, "localcb: cb.Pipeline.CreateContainer")
 	}
 
 	if cfg.NetworkName != "" {
 		err = cb.Pipeline.NetworkConnect(cont.ID, cfg.NetworkName)
 		if err != nil {
-			return errors.Wrap(err, "localci: cb.Pipeline.NetworkConnect")
+			return errors.Wrap(err, "localcb: cb.Pipeline.NetworkConnect")
 		}
 	}
 
 	err = cb.Pipeline.ContainerStart(cont.ID)
 	if err != nil {
-		return errors.Wrap(err, "localci: cb.Pipeline.ContainerStart")
+		return errors.Wrap(err, "localcb: cb.Pipeline.ContainerStart")
 	}
 
 	stdout, stderr, err := cb.Pipeline.ContainerAttach(cont.ID)
 	if err != nil {
-		return errors.Wrap(err, "localci: cb.Pipeline.ContainerAttach")
+		return errors.Wrap(err, "localcb: cb.Pipeline.ContainerAttach")
 	}
 
 	cb.Pipeline.InterruptHandler(stdout, stderr, cont.ID)
@@ -292,7 +292,7 @@ func (cb *CodeBuild) CreateContainer(cfg RunConfiguration) (container.ContainerC
 		Tty:        false,
 		Env:        cfg.EnvVariables,
 		WorkingDir: cfg.WorkingDirectory,
-		Cmd:        []string{"sh", "./localci.sh"},
+		Cmd:        []string{"sh", "./localcb.sh"},
 	}
 	host := &container.HostConfig{
 		Binds:      cfg.Volume,
