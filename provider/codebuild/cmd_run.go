@@ -44,9 +44,8 @@ var runFlags = struct {
 // RunCommand registers a cli.Command
 func RunCommand() cli.Command {
 	return cli.Command{
-		Name:      "run",
-		Usage:     "Just run it",
-		ArgsUsage: "<function-identifier>",
+		Name:  "run",
+		Usage: "Loads buildspec.yml and runs it in the Docker container",
 		Flags: []cli.Flag{
 			cli.StringFlag{
 				Name:  runFlags.ProjectName.Join(),
@@ -147,7 +146,7 @@ func runCommand(c *cli.Context) error {
 	}
 
 	// Bail-out if running in dry-run mode
-	if c.Bool("dry-run") == true {
+	if c.Bool(runFlags.DryRun.Long) == true {
 		return nil
 	}
 
