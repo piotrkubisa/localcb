@@ -243,6 +243,32 @@ func (cb *CodeBuild) Validate(cfg RunConfiguration) error {
 	return nil
 }
 
+func (cb *CodeBuild) DryRun(cfg RunConfiguration) {
+	args := []string{"docker", "run"}
+
+	if cb.Project.Environment.PrivilegedMode {
+		args = append(args, "--privileged")
+	}
+
+	args = append(args, "--rm")
+	args = append(args, "--interactive")
+
+	for _, v := range cfg.EnvVariables {
+		args = append(args, "--env", fmt.Sprintf(`'%s'`, v))
+	}
+
+	for _, v := range cfg.Volume {
+		args = append(args, "--volume", v)
+	}
+
+	args = append(args, "--workdir", cfg.WorkingDirectory)
+	args = append(args, "--entrypoint", "dockerd-entrypoint.sh")
+
+	args = append(args, cb.Project.Environment.Image)
+	args = append(args, "sh", "./localcb.sh")
+	fmt.Println(strings.Join(args, " "))
+}
+
 // RunInContainer starts Docker container and executes localcb.sh shell script
 func (cb *CodeBuild) RunInContainer(cfg RunConfiguration) error {
 	_, err := cb.Pipeline.DockerVersion()

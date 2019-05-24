@@ -16,3 +16,6 @@
 # Repository-related
 /localcb
 /localcb.exe
+
+# Golang depedencies
+/vendor

@@ -145,11 +145,6 @@ func runCommand(c *cli.Context) error {
 		log.Fatal(err)
 	}
 
-	// Bail-out if running in dry-run mode
-	if c.Bool(runFlags.DryRun.Long) == true {
-		return nil
-	}
-
 	volumes, err := cb.Volumes(c.StringSlice(runFlags.DockerVolumes.Long))
 	if err != nil {
 		log.Fatal(err)
@@ -169,6 +164,12 @@ func runCommand(c *cli.Context) error {
 	if err != nil {
 		log.Fatal(err)
 		return err
+	}
+
+	// Bail-out if running in dry-run mode
+	if c.Bool(runFlags.DryRun.Long) == true {
+		cb.DryRun(cfg)
+		return nil
 	}
 
 	return cb.RunInContainer(cfg)
