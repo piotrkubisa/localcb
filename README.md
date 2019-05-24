@@ -95,7 +95,7 @@ docker run \
             sh ./localcb.sh
 ```
 
-Added bashlashes for a brevity reasons.
+In above example the command will be printed out, so it can be easily modified (note: backslashes and new lines were added for reasons of brevity).
 
 ## Credits
 
